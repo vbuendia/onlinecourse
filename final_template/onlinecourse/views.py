@@ -114,7 +114,7 @@ def submit(request, course_id):
     enroll = Enrollment.objects.get(user=request.user,course=course_id)
     submis = Submission.objects.create(enrollment=enroll)
     submis.objects.choices = extract_answers(request)
-    show_exam_result(request,course_id,submis.id)
+    return show_exam_result(request,course_id,submis.id)
 
 
 # <HINT> A example method to collect the selected choices from the exam form from the request object
@@ -138,4 +138,4 @@ def show_exam_result(request, course_id, submission_id):
    course = get_object_or_404(Course, pk=course_id)
    submission  = get_object_or_404(Submission, pk=submission_id)
 
-
+   
