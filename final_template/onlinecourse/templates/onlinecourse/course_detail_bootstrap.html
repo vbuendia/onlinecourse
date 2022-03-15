@@ -63,8 +63,9 @@
             <div id="exam" class="collapse">
             <!-- <HINT> Each example will have many questions -->
                 Exam:
-                <form id="questionform" action="{% url 'onlinecourse:submit' %}" method="post">
+                <form id="questionform" action="{% url 'onlinecourse:submit' course.id %}" method="post">
                     {% for question in course.question_set.all %}
+                    
                     <div class="card mt-1">
                         <div class="card-header"><h5>{{ question.content}}</h5></div>
                         {% csrf_token %}
