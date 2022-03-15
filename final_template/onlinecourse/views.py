@@ -111,9 +111,10 @@ def enroll(request, course_id):
          # Add each selected choice object to the submission object
          # Redirect to show_exam_result with the submission id
 def submit(request, course_id):
+    
     enroll = Enrollment.objects.get(user=request.user,course=course_id)
     submis = Submission.objects.create(enrollment=enroll)
-    submis.objects.choices = extract_answers(request)
+    submis.choices = extract_answers(request)
     return show_exam_result(request,course_id,submis.id)
 
 
