@@ -138,5 +138,5 @@ def extract_answers(request):
 def show_exam_result(request, course_id, submission_id):
    course = get_object_or_404(Course, pk=course_id)
    submission  = get_object_or_404(Submission, pk=submission_id)
-
    
+   return HttpResponseRedirect(reverse(viewname='onlinecourse:show_exam_result', args=(course_id,submission_id,)))
