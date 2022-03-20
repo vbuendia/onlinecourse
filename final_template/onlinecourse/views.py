@@ -135,13 +135,28 @@ def extract_answers(request):
         # Get the selected choice ids from the submission record
         # For each selected choice, check if it is a correct answer or not
         # Calculate the total score
+
+
 def show_exam_result(request, course_id, submission_id):
-   #course = get_object_or_404(Course, pk=course_id)
-   #submission  = get_object_or_404(Submission, pk=submission_id)
+   course = get_object_or_404(Course, pk=course_id)
+   submission  = get_object_or_404(Submission, pk=submission_id)
+   choices = submission.choices.all()
+
    context = {}
+
    context['course_id'] = course_id
    context['submission_id']=submission_id
-   context['grade'] = 100;
+   context['course']= course
+   context['choices'] = choices
+   maxscore = 0
+   score = 0
+   for question in course.question_set.all():
+      maxscore += question.grade
+      if question.is_get_score(choices):
+          score += question.grade
+   
+   context['grade'] = score / maxscore * 100
+   context['final_score'] = "" + str(int(score)) + "/" + str(int(maxscore))
    return render(request, 'onlinecourse/exam_result_bootstrap.html', context)
 
    #return HttpResponseRedirect(reverse(viewname='onlinecourse:show_exam_result', args=(course_id,submission_id,)))
