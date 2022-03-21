@@ -55,7 +55,7 @@
             {% for question in course.question_set.all %}
             <div class="card mt-1">
                 <div class="card-header">
-                    <h5>{{ question.text}}</h5>
+                    <h5>{{ question.content}}</h5>
                 </div>
             
                 {% csrf_token %}
